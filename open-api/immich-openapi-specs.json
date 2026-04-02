@@ -15351,13 +15351,6 @@
           "order": {
             "$ref": "#/components/schemas/AssetOrder"
           },
-          "owner": {
-            "$ref": "#/components/schemas/UserResponseDto"
-          },
-          "ownerId": {
-            "description": "Owner user ID",
-            "type": "string"
-          },
           "shared": {
             "description": "Is shared album",
             "type": "boolean"
@@ -15384,8 +15377,6 @@
           "hasSharedLink",
           "id",
           "isActivityEnabled",
-          "owner",
-          "ownerId",
           "shared",
           "updatedAt"
         ],
@@ -15475,6 +15466,7 @@
         "description": "Album user role",
         "enum": [
           "editor",
+          "owner",
           "viewer"
         ],
         "type": "string"
@@ -22553,6 +22545,59 @@
         ],
         "type": "object"
       },
+      "SyncAlbumV2": {
+        "properties": {
+          "createdAt": {
+            "description": "Created at",
+            "example": "2024-01-01T00:00:00.000Z",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
+            "type": "string"
+          },
+          "description": {
+            "description": "Album description",
+            "type": "string"
+          },
+          "id": {
+            "description": "Album ID",
+            "type": "string"
+          },
+          "isActivityEnabled": {
+            "description": "Is activity enabled",
+            "type": "boolean"
+          },
+          "name": {
+            "description": "Album name",
+            "type": "string"
+          },
+          "order": {
+            "$ref": "#/components/schemas/AssetOrder"
+          },
+          "thumbnailAssetId": {
+            "description": "Thumbnail asset ID",
+            "nullable": true,
+            "type": "string"
+          },
+          "updatedAt": {
+            "description": "Updated at",
+            "example": "2024-01-01T00:00:00.000Z",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "createdAt",
+          "description",
+          "id",
+          "isActivityEnabled",
+          "name",
+          "order",
+          "thumbnailAssetId",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
       "SyncAssetDeleteV1": {
         "properties": {
           "assetId": {
@@ -23238,6 +23283,7 @@
           "PartnerStackDeleteV1",
           "PartnerStackV1",
           "AlbumV1",
+          "AlbumV2",
           "AlbumDeleteV1",
           "AlbumUserV1",
           "AlbumUserBackfillV1",
@@ -23532,6 +23578,7 @@
         "description": "Sync request type",
         "enum": [
           "AlbumsV1",
+          "AlbumsV2",
           "AlbumUsersV1",
           "AlbumToAssetsV1",
           "AlbumAssetsV1",

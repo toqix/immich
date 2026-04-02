@@ -12,7 +12,13 @@
   import { getAssetType } from '$lib/utils/asset-utils';
   import { handleError } from '$lib/utils/handle-error';
   import { isTenMinutesApart } from '$lib/utils/timesince';
-  import { ReactionType, type ActivityResponseDto, type AssetTypeEnum } from '@immich/sdk';
+  import {
+    AlbumUserRole,
+    ReactionType,
+    type ActivityResponseDto,
+    type AlbumUserResponseDto,
+    type AssetTypeEnum,
+  } from '@immich/sdk';
   import { Icon, IconButton, LoadingSpinner, Textarea, toastManager } from '@immich/ui';
   import { mdiClose, mdiDeleteOutline, mdiDotsVertical, mdiSend, mdiThumbUp } from '@mdi/js';
   import * as luxon from 'luxon';
@@ -43,11 +49,11 @@
     assetId?: string | undefined;
     albumId: string;
     assetType?: AssetTypeEnum | undefined;
-    albumOwnerId: string;
+    albumUsers: AlbumUserResponseDto[];
     disabled: boolean;
   }
 
-  let { assetId = undefined, albumId, assetType = undefined, albumOwnerId, disabled }: Props = $props();
+  let { assetId = undefined, albumId, assetType = undefined, albumUsers, disabled }: Props = $props();
 
   let innerHeight: number = $state(0);
   let activityHeight: number = $state(0);
@@ -56,6 +62,9 @@
   let previousAssetId: string | undefined = $state(assetId);
   let message = $state('');
   let isSendingMessage = $state(false);
+  const isAlbumOwner = $derived(
+    albumUsers.find(({ user: { id } }) => id === authManager.user.id)?.role === AlbumUserRole.Owner,
+  );
 
   const timeOptions: Intl.DateTimeFormatOptions = {
     year: 'numeric',
@@ -147,7 +156,7 @@
                   />
                 </a>
               {/if}
-              {#if reaction.user.id === authManager.user.id || albumOwnerId === authManager.user.id}
+              {#if reaction.user.id === authManager.user.id || isAlbumOwner}
                 <div class="me-4">
                   <ButtonContextMenu
                     icon={mdiDotsVertical}
@@ -200,7 +209,7 @@
                     />
                   </a>
                 {/if}
-                {#if reaction.user.id === authManager.user.id || albumOwnerId === authManager.user.id}
+                {#if reaction.user.id === authManager.user.id || isAlbumOwner}
                   <div class="me-4">
                     <ButtonContextMenu
                       icon={mdiDotsVertical}

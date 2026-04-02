@@ -30,6 +30,7 @@
   import type { OnUndoDelete } from '$lib/utils/actions';
   import { toTimelineAsset } from '$lib/utils/timeline-util';
   import {
+    AlbumUserRole,
     AssetTypeEnum,
     AssetVisibility,
     type AlbumResponseDto,
@@ -82,7 +83,10 @@
   }: Props = $props();
 
   const isOwner = $derived(authManager.authenticated && asset.ownerId === authManager.user.id);
-  const isAlbumOwner = $derived(authManager.authenticated && album?.ownerId === authManager.user.id);
+  const isAlbumOwner = $derived(
+    authManager.authenticated &&
+      album?.albumUsers.find(({ user: { id } }) => id === authManager.user.id)?.role === AlbumUserRole.Owner,
+  );
   const isLocked = $derived(asset.visibility === AssetVisibility.Locked);
   const smartSearchEnabled = $derived(featureFlagsManager.value.smartSearch);
 

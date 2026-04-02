@@ -643,9 +643,6 @@ export type AlbumResponseDto = {
     /** Last modified asset timestamp */
     lastModifiedAssetTimestamp?: string;
     order?: AssetOrder;
-    owner: UserResponseDto;
-    /** Owner user ID */
-    ownerId: string;
     /** Is shared album */
     shared: boolean;
     /** Start date (earliest asset) */
@@ -2871,6 +2868,23 @@ export type SyncAlbumV1 = {
     order: AssetOrder;
     /** Owner ID */
     ownerId: string;
+    /** Thumbnail asset ID */
+    thumbnailAssetId: string | null;
+    /** Updated at */
+    updatedAt: string;
+};
+export type SyncAlbumV2 = {
+    /** Created at */
+    createdAt: string;
+    /** Album description */
+    description: string;
+    /** Album ID */
+    id: string;
+    /** Is activity enabled */
+    isActivityEnabled: boolean;
+    /** Album name */
+    name: string;
+    order: AssetOrder;
     /** Thumbnail asset ID */
     thumbnailAssetId: string | null;
     /** Updated at */
@@ -6727,6 +6741,7 @@ export enum AssetVisibility {
 }
 export enum AlbumUserRole {
     Editor = "editor",
+    Owner = "owner",
     Viewer = "viewer"
 }
 export enum SourceType {
@@ -7107,6 +7122,7 @@ export enum SyncEntityType {
     PartnerStackDeleteV1 = "PartnerStackDeleteV1",
     PartnerStackV1 = "PartnerStackV1",
     AlbumV1 = "AlbumV1",
+    AlbumV2 = "AlbumV2",
     AlbumDeleteV1 = "AlbumDeleteV1",
     AlbumUserV1 = "AlbumUserV1",
     AlbumUserBackfillV1 = "AlbumUserBackfillV1",
@@ -7139,6 +7155,7 @@ export enum SyncEntityType {
 }
 export enum SyncRequestType {
     AlbumsV1 = "AlbumsV1",
+    AlbumsV2 = "AlbumsV2",
     AlbumUsersV1 = "AlbumUsersV1",
     AlbumToAssetsV1 = "AlbumToAssetsV1",
     AlbumAssetsV1 = "AlbumAssetsV1",
