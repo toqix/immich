@@ -492,42 +492,6 @@ export type ExifResponseDto = {
     /** Time zone */
     timeZone?: string | null;
 };
-export type AssetFaceWithoutPersonResponseDto = {
-    /** Bounding box X1 coordinate */
-    boundingBoxX1: number;
-    /** Bounding box X2 coordinate */
-    boundingBoxX2: number;
-    /** Bounding box Y1 coordinate */
-    boundingBoxY1: number;
-    /** Bounding box Y2 coordinate */
-    boundingBoxY2: number;
-    /** Face ID */
-    id: string;
-    /** Image height in pixels */
-    imageHeight: number;
-    /** Image width in pixels */
-    imageWidth: number;
-    sourceType?: SourceType;
-};
-export type PersonWithFacesResponseDto = {
-    /** Person date of birth */
-    birthDate: string | null;
-    /** Person color (hex) */
-    color?: string;
-    faces: AssetFaceWithoutPersonResponseDto[];
-    /** Person ID */
-    id: string;
-    /** Is favorite */
-    isFavorite?: boolean;
-    /** Is hidden */
-    isHidden: boolean;
-    /** Person name */
-    name: string;
-    /** Thumbnail path */
-    thumbnailPath: string;
-    /** Last update date */
-    updatedAt?: string;
-};
 export type AssetStackResponseDto = {
     /** Number of assets in stack */
     assetCount: number;
@@ -601,7 +565,6 @@ export type AssetResponseDto = {
     owner?: UserResponseDto;
     /** Owner user ID */
     ownerId: string;
-    people?: PersonWithFacesResponseDto[];
     /** Is resized */
     resized?: boolean;
     stack?: (AssetStackResponseDto) | null;
@@ -609,7 +572,6 @@ export type AssetResponseDto = {
     /** Thumbhash for thumbnail generation (base64) also used as the c query param for thumbnail cache busting. */
     thumbhash: string | null;
     "type": AssetTypeEnum;
-    unassignedFaces?: AssetFaceWithoutPersonResponseDto[];
     /** The UTC timestamp when the asset record was last updated in the database. This is automatically maintained by the database and reflects when any field in the asset was last modified. */
     updatedAt: string;
     visibility: AssetVisibility;
@@ -6824,11 +6786,6 @@ export enum AlbumUserRole {
     Editor = "editor",
     Viewer = "viewer"
 }
-export enum SourceType {
-    MachineLearning = "machine-learning",
-    Exif = "exif",
-    Manual = "manual"
-}
 export enum AssetTypeEnum {
     Image = "IMAGE",
     Video = "VIDEO",
@@ -7032,6 +6989,11 @@ export enum AssetMediaSize {
     Fullsize = "fullsize",
     Preview = "preview",
     Thumbnail = "thumbnail"
+}
+export enum SourceType {
+    MachineLearning = "machine-learning",
+    Exif = "exif",
+    Manual = "manual"
 }
 export enum ManualJobName {
     PersonCleanup = "person-cleanup",

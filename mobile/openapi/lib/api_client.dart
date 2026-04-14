@@ -260,8 +260,6 @@ class ApiClient {
           return AssetFaceUpdateDto.fromJson(value);
         case 'AssetFaceUpdateItem':
           return AssetFaceUpdateItem.fromJson(value);
-        case 'AssetFaceWithoutPersonResponseDto':
-          return AssetFaceWithoutPersonResponseDto.fromJson(value);
         case 'AssetFullSyncDto':
           return AssetFullSyncDto.fromJson(value);
         case 'AssetIdErrorReason':
@@ -518,8 +516,6 @@ class ApiClient {
           return PersonStatisticsResponseDto.fromJson(value);
         case 'PersonUpdateDto':
           return PersonUpdateDto.fromJson(value);
-        case 'PersonWithFacesResponseDto':
-          return PersonWithFacesResponseDto.fromJson(value);
         case 'PinCodeChangeDto':
           return PinCodeChangeDto.fromJson(value);
         case 'PinCodeResetDto':
